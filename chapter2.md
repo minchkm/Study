@@ -1,102 +1,104 @@
-Chapter 2. 연산자
-자바에서는 값을 계산하거나 비교하거나 논리 판단을 하기 위해 다양한 연산자를 제공함. 종류는 많지만 기본적인 것부터 확실히 익히는 게 좋음.
+1장. 변수와 자료형
+1.1 변수
+변수는 데이터를 저장하는 공간임.
+자바에서는 변수를 선언할 때 자료형을 반드시 명시해야 함.
 
-2.1 산술 연산자
-숫자 계산에 사용되는 기본 연산자들.
-+, -, *, /, % 다섯 개가 있음.
-
+코드 예시
 java
-복사
-편집
+int age = 24;
+double height = 172.5;
+char grade = 'A';
+String name = "홍길동";
+boolean isStudent = true;
+1.2 자료형
+자바의 자료형은 크게 기본형(primitive type)과 참조형(reference type)으로 구분함.
+
+기본형(primitive type)
+자료형	크기	예시 값	설명
+byte	1바이트	100	작은 정수
+short	2바이트	32000	작은 정수
+int	4바이트	123456	일반 정수
+long	8바이트	123456789L	큰 정수
+float	4바이트	3.14f	실수
+double	8바이트	3.141592	정밀 실수
+char	2바이트	'A'	문자
+boolean	1바이트	true/false	논리값
+참조형(reference type)
+문자열, 배열, 클래스, 인터페이스, 열거형 등이 있음.
+
+코드 예시
+java
+String message = "Hello, Java!";
+int[] numbers = {1, 2, 3, 4, 5};
+1.3 변수 선언과 초기화
+변수는 선언만 할 수도 있고, 선언과 동시에 값을 할당할 수도 있음.
+자바에서는 변수를 사용하기 전에 반드시 초기화해야 함.
+
+코드 예시
+java
+int score;        // 선언
+score = 90;       // 값 할당
+
+double pi = 3.1415; // 선언과 동시에 초기화
+1.4 상수(final)
+상수는 한 번 값이 정해지면 변경할 수 없음.
+final 키워드로 선언함.
+상수명은 대문자로 작성하는 것이 관례임.
+
+코드 예시
+java
+final double PI = 3.141592;
+final int MAX_STUDENT = 30;
+1.5 자료형 변환
+서로 다른 자료형 간에는 변환이 필요함.
+
+자동 형변환(묵시적 변환)
+작은 크기의 자료형에서 큰 크기의 자료형으로는 자동 변환됨.
+
+코드 예시
+java
 int a = 10;
-int b = 3;
+double b = a; // int → double 자동 변환
+강제 형변환(명시적 변환)
+큰 크기의 자료형에서 작은 크기의 자료형으로 변환할 때는 형변환 연산자를 사용함.
 
-System.out.println(a + b); // 13
-System.out.println(a - b); // 7
-System.out.println(a * b); // 30
-System.out.println(a / b); // 3 (몫만 출력됨)
-System.out.println(a % b); // 1 (나머지)
-/ 연산은 정수 나눗셈일 경우 소수점 아래는 잘려나감.
+코드 예시
+java
+double x = 3.14;
+int y = (int) x; // 소수점 이하가 잘려서 3이 됨
+1.6 변수와 자료형 종합 예제
+코드 예시
+java
+public class VariableExample {
+    public static void main(String[] args) {
+        int age = 24;
+        double height = 172.5;
+        char grade = 'A';
+        String name = "홍길동";
+        boolean isStudent = true;
 
-%는 나눗셈의 나머지를 구함.
+        System.out.println("이름: " + name);
+        System.out.println("나이: " + age);
+        System.out.println("키: " + height);
+        System.out.println("학점: " + grade);
+        System.out.println("학생 여부: " + isStudent);
+    }
+}
+// 위 코드는 여러 자료형의 변수를 선언하고 값을 할당한 뒤 출력함.
 
-2.2 증감 연산자
-변수를 1씩 증가(++) 또는 감소(--)시킬 때 사용함. 전위와 후위가 있음.
+1.7 연습문제
+자신의 이름, 나이, 키, 학점, 학생 여부를 변수로 선언하고 한 줄로 출력하는 코드 작성.
+
+아래 코드의 실행 결과 예측 및 실제 실행.
 
 java
-복사
-편집
-int x = 5;
-System.out.println(++x); // 6 (먼저 증가 후 출력)
-System.out.println(x--); // 6 (출력 후 감소, 다음 x는 5)
-2.3 비교 연산자
-두 값을 비교해서 true 또는 false 값을 반환함.
+int x = 7;
+double y = 2.5;
+System.out.println(x + y);
+System.out.println((int)y);
+상수로 원의 반지름과 원주율(3.14)을 선언하고, 원의 넓이를 구하는 코드 작성.
 
+1.8 참고자료
+자바의 기본 자료형 공식 문서
 
-연산자	설명	예시
-==	같다	a == b
-!=	다르다	a != b
->	크다	a > b
-<	작다	a < b
->=	크거나 같다	a >= b
-<=	작거나 같다	a <= b
-2.4 논리 연산자
-조건을 여러 개 결합할 때 사용함. 주로 boolean 값에 사용함.
-
-
-연산자	설명	예시
-&&	AND	(age >= 20 && age < 30)
-||	OR	(a > 10 || b < 5)
-!	NOT	!(isStudent)
-java
-복사
-편집
-int age = 25;
-boolean result = (age >= 20 && age <= 29);
-System.out.println(result); // true
-2.5 대입 연산자
-값을 변수에 대입하거나 연산 후 대입하는 데 사용함.
-
-java
-복사
-편집
-int a = 10;
-a += 5;  // a = a + 5; → 15
-a *= 2;  // a = a * 2; → 30
-2.6 삼항 연산자 (조건 연산자)
-조건식 ? 참일 때 값 : 거짓일 때 값
-
-java
-복사
-편집
-int score = 85;
-String grade = (score >= 90) ? "A" : "B 이하";
-System.out.println(grade); // B 이하
-2.7 연산자 우선순위
-*, /, % > +, - > 비교 > 논리 > 대입
-
-헷갈릴 땐 괄호로 묶어서 순서 정해주면 됨
-
-java
-복사
-편집
-int result = 3 + 4 * 2;       // 11
-int result2 = (3 + 4) * 2;    // 14
-2.8 연습문제
-[문제 1]
-두 정수를 입력받아 사칙연산 결과를 모두 출력하는 코드 작성
-
-[문제 2]
-나이가 20 이상이면 "성인", 아니면 "청소년" 출력
-
-[문제 3]
-아래 코드의 결과 예측하고, 실제 결과와 비교해보기
-
-java
-복사
-편집
-int a = 7;
-int b = 2;
-System.out.println(a / b);
-System.out.println(a % b);
-System.out.println((a > b) && (b != 0));
+생활코딩 - 자바 변수와 자료형 강의
