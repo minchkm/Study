@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            
+        }
+        .color{
+            color: white;
+        }
+        *{
+           box-sizing: border-box;
+        }
+        body{ background-color: #c8e6c9;
+                    text-align: center;}
+        header{background-color: #2e7d32;
+                    width: 80%;
+                    height: 10%;         }
+        nav{background-color: #388e3c;
+            width: 80%;
+                    height: 10%;}
+        aside{background-color: #43a047;
+                     width: 20%;
+                    height: 67%; 
+                      float:left      
+                                    }
+        section{background-color: #4caf50;
+                    width: 80%;
+                    height: 67%;
+                }
+        footer{background-color: #66bb6a;
+            width: 80%;
+                    height: 10%;
+                   clear: both;  /* 얘부터는 left를안받겠다라는 뜼*/                      }
+                header,nav,aside,section,footer{
+                    margin: 0 auto;
+                }
+                
+
+    </style>
+</head>
+<body>
+    <div class="container ">
+    <header class="color">header</header>
+    <nav class="color">nav</nav>
+    <div class="main">
+    <aside class="color">aside</aside>
+    <section class="color">contents</section>
+</div>
+    <footer class="color">footer</footer>
+</div>
+</body>
+</html>

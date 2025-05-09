@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>NAVER</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    :root { --main-color: #19ce60; }
+    body { margin: 0; font-family: '맑은 고딕', sans-serif; background: #f5f6f7; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .left-icons i, .right-icons i {
+      font-size: 22px;
+      margin-right: 10px;
+      color: #555;
+      vertical-align: middle;
+      transition: color 0.2s;
+    }
+    .left-icons i:hover, .right-icons i:hover { color: var(--main-color); }
+    .right-icons { margin-left: 24px; position: relative; }
+    .badge {
+      position: absolute;
+      top: -6px;
+      right: 0;
+      background: #ff3d3d;
+      color: #fff;
+      font-size: 10px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .naver-search {
+      text-align: center;
+      margin: 40px 0 30px 0;
+      position: relative;
+    }
+    .naver-search span {
+      font-size: 60px;
+      color: var(--main-color);
+      font-weight: bold;
+      vertical-align: middle;
+      margin-right: 16px;
+    }
+    .search-box {
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+    }
+    .search-box input[type="text"] {
+      font-size: 22px;
+      padding: 12px 60px 12px 20px;
+      width: 370px;
+      border: 1.5px solid var(--main-color);
+      border-radius: 30px;
+      outline: none;
+      box-sizing: border-box;
+      transition: box-shadow 0.2s;
+    }
+    .search-box input[type="text"]:focus {
+      box-shadow: 0 0 8px rgba(25, 206, 96, 0.3);
+    }
+    .search-box button {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--main-color);
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .search-box button:hover { background: #17b857; }
+    
+    /* --- 네비게이션 메뉴 --- */
+    nav {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      width: fit-content;
+      margin: 0 auto 40px auto;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    nav li {
+      margin: 0 28px;
+      text-align: center;
+      padding: 18px 0 10px 0;
+      min-width: 60px;
+      position: relative;
+    }
+    nav li a { 
+      text-decoration: none;
+      color: #222;
+      display: block;
+    }
+    nav li i {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      transition: color 0.2s;
+    }
+    nav li:hover i { color: var(--main-color); }
+    nav li:hover span { color: var(--main-color); }
+
+    /* --- 퀵 링크 --- */
+    .quick-links {
+      display: flex;
+      justify-content: center;
+      margin: 0 0 40px 0;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .quick-link {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      font-size: 17px;
+      color: var(--main-color);
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+    .quick-link:hover {
+      background: #eaffed;
+      transform: translateY(-2px);
+    }
+
+    /* --- 메인 콘텐츠 섹션 --- */
+    .main-content {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      padding: 0 20px;
+    }
+    .content-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 28px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .content-card:hover {
+      transform: translateY(-5px);
+    }
+    .content-card h2 {
+      font-size: 22px;
+      color: var(--main-color);
+      margin: 0 0 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .content-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    /* 간단 막대 그래프 */
+    .graph {
+      height: 10px;
+      background: #eee;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .graph-bar {
+      height: 100%;
+      background: var(--main-color);
+      border-radius: 5px;
+      width: 70%;
+    }
+    .content-card ul {
+      padding-left: 18px;
+      margin: 0 0 12px 0;
+    }
+    .content-card li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: #333;
+    }
+    .content-card .more {
+      text-align: right;
+      font-size: 13px;
+      color: var(--main-color);
+      text-decoration: none;
+      font-weight: bold;
+      display: block;
+      margin-top: 16px;
+    }
+
+    /* --- 푸터 --- */
+    footer {
+      text-align: center;
+      color: #888;
+      font-size: 13px;
+      padding: 20px 0 15px 0;
+      background: #f8f8f8;
+      margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+      .naver-search span { font-size: 36px; }
+      .search-box input[type="text"] { width: 180px; font-size: 16px; }
+      nav ul { flex-wrap: wrap; }
+      nav li { margin: 0 10px; min-width: 40px; }
+      .quick-link { font-size: 14px; padding: 10px 16px; }
+      .main-content { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 헤더 -->
+  <header>
+    <div>
+      <span class="left-icons">
+        <i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-comment-dollar"></i>
+      </span>
+      <span class="right-icons" style="position:relative;">
+        <i class="fa-solid fa-comments"></i>
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge">3</span>
+        <i class="fa-solid fa-cart-shopping"></i>
+      </span>
+    </div>
+  </header>
+
+  <!-- 검색창 -->
+  <div class="naver-search">
+    <span>
+      <i class="fa-solid fa-leaf fa-spin" style="color:#19ce60; font-size:38px; vertical-align:middle; margin-right:8px;"></i>
+      NAVER
+    </span>
+    <span class="search-box">
+      <input type="text" placeholder="검색어를 입력하세요">
+      <button><i class="fa-solid fa-magnifying-glass"></i></button>
+    </span>
+  </div>
+
+  <!-- 네비게이션 -->
+  <nav>
+    <ul>
+      <li><a href="#mail"><i class="fa-solid fa-envelope"></i><span>메일</span></a></li>
+      <li><a href="#cafe"><i class="fa-solid fa-mug-saucer"></i><span>카페</span></a></li>
+      <li><a href="#blog"><i class="fa-solid fa-blog"></i><span>블로그</span></a></li>
+      <li><a href="#news"><i class="fa-solid fa-newspaper"></i><span>뉴스</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- 퀵 링크 -->
+  <div class="quick-links">
+    <a href="#pay" class="quick-link"><i class="fa-solid fa-credit-card"></i>네이버페이</a>
+    <a href="#shopping" class="quick-link"><i class="fa-solid fa-gift"></i>쇼핑</a>
+    <a href="#food" class="quick-link"><i class="fa-solid fa-utensils"></i>맛집</a>
+    <a href="#movie" class="quick-link"><i class="fa-solid fa-film"></i>영화</a>
+  </div>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="main-content">
+    <!-- 스포츠 섹션 -->
+    <div class="content-card" id="sports">
+      <h2><i class="fa-solid fa-futbol"></i>스포츠</h2>
+      <img src="https://source.unsplash.com/random/800x600?sports" alt="스포츠 이미지">
+      <div class="graph"><div class="graph-bar" style="width: 75%"></div></div>
+      <ul>
+        <li>⚽ 손흥민 해트트릭!</li>
+        <li>🏀 농구 플레이오프 하이라이트</li>
+      </ul>
+      <a href="#sports-more" class="more">더보기 &gt;</a>
+    </div>
+
+    <!-- IT 테크 -->
+    <div class="content-card" id="tech">
+      <h2><i class="fa-solid fa-microchip"></i>IT 테크</h2>
+      <img src="https://source.unsplash.com/random/800x600?technology" alt="기술 이미지">
+      <div class="graph"><div class="graph-bar" style="width: 90%"></div></div>
+      <ul>
+        <li>새로운 스마트폰 출시</li>
+        <li>AI 기술 혁신 소식</li>
+      </ul>
+      <a href="#tech-more" class="more">더보기 &gt;</a>
+    </div>
+
+    <!-- 여행 -->
+    <div class="content-card" id="travel">
+      <h2><i class="fa-solid fa-plane"></i>여행</h2>
+      <img src="https://source.unsplash.com/random/800x600?travel" alt="여행 이미지">
+      <div class="graph"><div class="graph-bar" style="width: 60%"></div></div>
+      <ul>
+        <li>인기 해외 여행지 TOP5</li>
+        <li>가성비 좋은 국내 여행지</li>
+      </ul>
+      <a href="#travel-more" class="more">더보기 &gt;</a>
+    </div>
+
+    <!-- 건강 -->
+    <div class="content-card" id="health">
+      <h2><i class="fa-solid fa-heart-pulse"></i>건강</h2>
+      <img src="https://source.unsplash.com/random/800x600?health" alt="건강 이미지">
+      <div class="graph"><div class="graph-bar" style="width: 85%"></div></div>
+      <ul>
+        <li>여름철 건강 관리법</li>
+        <li>집에서 하는 간단 운동</li>
+      </ul>
+      <a href="#health-more" class="more">더보기 &gt;</a>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <footer>
+    Copyright © NAVER Corp. All Rights Reserved.<br>
+    <span style="color:var(--main-color);">이 사이트는 연습용 클론입니다.</span>
+  </footer>
+</body>
+</html<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>NAVER</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    :root { --main-color: #19ce60; }
+    body { margin: 0; font-family: '맑은 고딕', sans-serif; background: #f5f6f7; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .left-icons i, .right-icons i {
+      font-size: 22px;
+      margin-right: 10px;
+      color: #555;
+      vertical-align: middle;
+      transition: color 0.2s;
+    }
+    .left-icons i:hover, .right-icons i:hover { color: var(--main-color); }
+    .right-icons { margin-left: 24px; position: relative; }
+    .badge {
+      position: absolute;
+      top: -6px;
+      right: 0;
+      background: #ff3d3d;
+      color: #fff;
+      font-size: 10px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .naver-search {
+      text-align: center;
+      margin: 40px 0 30px 0;
+      position: relative;
+    }
+    .naver-search span {
+      font-size: 60px;
+      color: var(--main-color);
+      font-weight: bold;
+      vertical-align: middle;
+      margin-right: 16px;
+    }
+    .search-box {
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+    }
+    .search-box input[type="text"] {
+      font-size: 22px;
+      padding: 12px 60px 12px 20px;
+      width: 370px;
+      border: 1.5px solid var(--main-color);
+      border-radius: 30px;
+      outline: none;
+      box-sizing: border-box;
+      transition: box-shadow 0.2s;
+    }
+    .search-box input[type="text"]:focus {
+      box-shadow: 0 0 8px rgba(25, 206, 96, 0.3);
+    }
+    .search-box button {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--main-color);
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .search-box button:hover { background: #17b857; }
+    
+    /* --- 네비게이션 메뉴 --- */
+    nav {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      width: fit-content;
+      margin: 0 auto 40px auto;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    nav li {
+      margin: 0 28px;
+      text-align: center;
+      padding: 18px 0 10px 0;
+      min-width: 60px;
+      position: relative;
+    }
+    nav li a { 
+      text-decoration: none;
+      color: #222;
+      display: block;
+    }
+    nav li i {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      transition: color 0.2s;
+    }
+    nav li:hover i { color: var(--main-color); }
+    nav li:hover span { color: var(--main-color); }
+
+    /* --- 퀵 링크 --- */
+    .quick-links {
+      display: flex;
+      justify-content: center;
+      margin: 0 0 40px 0;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .quick-link {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      font-size: 17px;
+      color: var(--main-color);
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+    .quick-link:hover {
+      background: #eaffed;
+      transform: translateY(-2px);
+    }
+
+    /* --- 메인 콘텐츠 섹션 --- */
+    .main-content {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      padding: 0 20px;
+    }
+    .content-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 28px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .content-card:hover {
+      transform: translateY(-5px);
+    }
+    .content-card h2 {
+      font-size: 22px;
+      color: var(--main-color);
+      margin: 0 0 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .content-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    /* 간단 막대 그래프 */
+    .graph {
+      height: 10px;
+      background: #eee;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .graph-bar {
+      height: 100%;
+      background: var(--main-color);
+      border-radius: 5px;
+      width: 70%;
+    }
+    .content-card ul {
+      padding-left: 18px;
+      margin: 0 0 12px 0;
+    }
+    .content-card li {
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: #333;
+    }
+    .content-card .more {
+      text-align: right;
+      font-size: 13px;
+      color: var(--main-color);
+      text-decoration: none;
+      font-weight: bold;
+      display: block;
+      margin-top: 16px;
+    }
+
+    /* --- 푸터 --- */
+    footer {
+      text-align: center;
+      color: #888;
+      font-size: 13px;
+      padding: 20px 0 15px 0;
+      background: #f8f8f8;
+      margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+      .naver-search span { font-size: 36px; }
+      .search-box input[type="text"] { width: 180px; font-size: 16px; }
+      nav ul { flex-wrap: wrap; }
+      nav li { margin: 0 10px; min-width: 40px; }
+      .quick-link { font-size: 14px; padding: 10px 16px; }
+      .main-content { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 헤더 -->
+  <header>
+    <div>
+      <span class="left-icons">
+        <i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-comment-dollar"></i>
+      </span>
+      <span class="right-icons" style="position:relative;">
+        <i class="fa-solid fa-comments"></i>
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge">3</span>
+        <i class="fa-solid fa-cart-shopping"></i>
+      </span>
+    </div>
+  </header>
+
+  <!-- 검색창 -->
+  <div class="naver-search">
+    <span>
+      <i class="fa-solid fa-leaf fa-spin" style="color:#19ce60; font-size:38px; vertical-align:middle; margin-right:8px;"></i>
+      NAVER
+    </span>
+    <span class="search-box">
+      <input type="text" placeholder="검색어를 입력하세요">
+      <button><i class="fa-solid fa-magnifying-glass"></i></button>
+    </span>
+  </div>
+
+  <!-- 네비게이션 -->
+  <nav>
+    <ul>
+      <li><a href="#mail"><i class="fa-solid fa-envelope"></i><span>메일</span></a></li>
+      <li><a href="#cafe"><i class="fa-solid fa-mug-saucer"></i><span>카페</span></a></li>
+      <li><a href="#blog"><i class="fa-solid fa-blog"></i><span>블로그</span></a></li>
+      <li><a href="#news"><i class="fa-solid fa-newspaper"></i><span>뉴스</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- 퀵 링크 -->
+  <div class="quick-links">
+    <a href="#pay" class="quick-link"><i class="fa-solid fa-credit-card"></i>네이버페이</a>
+    <a href="#shopping" class="quick-link"><i class="fa-solid fa-gift"></i>쇼핑</a>
+    <a href="#food" class="quick-link"><i class="fa-solid fa-utensils"></i>맛집</a>
+    <a href="#movie" class="quick-link"><i class="fa-solid fa-film"></i>영화</a>
+  </div>
+
+  <!-- 메인 콘텐츠 -->
+  <div class="main-content">
+    <!-- 스포츠 섹션 -->
+    <div class="content-card" id="sports">
+      <h2><i class="fa-solid fa-futbol"></i>스포츠</h2>
+      <img src="https://source.unsplash.com/random/800x600?sports" alt="스포츠 이미지">
+      <div class="graph"><div class="graph-bar" style="width: 75%"></div></div>
+      <ul>
+        <li>⚽ 손흥민 해트트릭!</li>
+        <li>🏀 농구 플레이오프 하이라이트</li>
+      </ul>
+      <a href="#sports-more" class="more">더보기 &gt;</a>
+    </div>
+
+    <!-- IT 테크 -->
+    <div class="content-card" id="tech">
+      <h2><i class="fa-solid fa-microchip"></i>IT 테크</h2>
+      <img src="https://source.unsplash.com/random/800x600?technology" alt="기술 이미지">
+      <div class="graph"><div class="graph-bar" style="width: 90%"></div></div>
+      <ul>
+        <li>새로운 스마트폰 출시</li>
+        <li>AI 기술 혁신 소식</li>
+      </ul>
+      <a href="#tech-more" class="more">더보기 &gt;</a>
+    </div>
+
+    <!-- 여행 -->
+    <div class="content-card" id="travel">
+      <h2><i class="fa-solid fa-plane"></i>여행</h2>
+      <img src="https://source.unsplash.com/random/800x600?travel" alt="여행 이미지">
+      <div class="graph"><div class="graph-bar" style="width: 60%"></div></div>
+      <ul>
+        <li>인기 해외 여행지 TOP5</li>
+        <li>가성비 좋은 국내 여행지</li>
+      </ul>
+      <a href="#travel-more" class="more">더보기 &gt;</a>
+    </div>
+
+    <!-- 건강 -->
+    <div class="content-card" id="health">
+      <h2><i class="fa-solid fa-heart-pulse"></i>건강</h2>
+      <img src="https://source.unsplash.com/random/800x600?health" alt="건강 이미지">
+      <div class="graph"><div class="graph-bar" style="width: 85%"></div></div>
+      <ul>
+        <li>여름철 건강 관리법</li>
+        <li>집에서 하는 간단 운동</li>
+      </ul>
+      <a href="#health-more" class="more">더보기 &gt;</a>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <footer>
+    Copyright © NAVER Corp. All Rights Reserved.<br>
+    <span style="color:var(--main-color);">이 사이트는 연습용 클론입니다.</span>
+  </footer>
+</body>
+</html>

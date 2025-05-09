@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>naver_copy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+        .left{
+            display:  flex;
+            justify-content: space-between;
+        }
+        .left-icons, .right-icons {
+            display: inline-block;  
+            margin-left: 30px;
+        }
+        .right-icons {
+            font-size: 25px;
+            margin-right: 40px;
+           
+        }
+        .naver{
+            text-align: center;
+            font-size: 60px;
+            color: green;
+            margin: 30px 0;
+        }
+        .naver input {
+            font-size: 20px;
+            padding: 8px 16px;
+            margin-left: 12px;
+            
+        }
+        ul{
+            display: flex;
+            justify-content: center; 
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .icon-widht-label{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 14px;
+            margin: 0 24px; 
+        }
+        .icon-widht-label i{
+             font-size: 24px;
+             margin-bottom: 4px;
+        }
+        .good{
+            padding: 60px 20px;
+            margin-left: 12px;
+            
+        }
+        .pay-circle {
+  display: inline-block;
+  width: 48px;        
+  height: 48px;
+  line-height: 48px;   
+  border-radius: 50%;  
+  background:black; 
+  color:  white;        
+  text-align: center;  
+  font-weight: bold;
+  font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    
+        
+        <div class="left">
+            <span class="left-icons">
+                <i class="fa-solid fa-bars"></i>
+                <span class="pay-circle">PAY</span>
+            </span>
+            <span class="right-icons">
+                <i class="fa-solid fa-comments"></i>
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </span>
+        </div>
+    </header>
+    
+    <div class="naver">
+        <span>naver</span>
+        <input type="text" size="40" placeholder="검색어를 입력하세요" style="border-radius:30px; padding:10px 30px; border:1px solid #ccc;">
+      </div>
+    <nav>
+        <ul>
+            <li class="icon-widht-label"><i class="fa-solid fa-envelope"></i><span>메일</span></li>
+            <li class="icon-widht-label"><i class="fa-solid fa-mug-saucer"></i><span>카페</span></li>
+            <li class="icon-widht-label"><i class="fa-solid fa-blog"></i><span>블로그</span></li>
+            <li class="icon-widht-label"><i class="fa-solid fa-store"></i><span>스토어</span></li>
+            <li class="icon-widht-label"><i class="fa-solid fa-newspaper"></i><span>뉴스</span></li>
+            <li class="icon-widht-label"><i class="fa-solid fa-chart-simple"></i><span>증권</span></li>
+            <li class="icon-widht-label"><i class="fa-solid fa-house-user"></i><span>부동산</span></li>
+            <li class="icon-widht-label"><i class="fa-solid fa-map"></i><span>지도</span></li>
+        </ul>
+    </nav>
+
+    <div class="good">
+        <input type="text" size="100">
+
+    </div>
+
+
+</body>
+</html>
