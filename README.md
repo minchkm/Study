@@ -1,4 +1,4 @@
-# ☕ Java Study Notes
+# ☕ Study Notes
 
 안녕하세요.  
 저는 서일대학교 소프트웨어공학과에 재학 중인 김민창입니다  
