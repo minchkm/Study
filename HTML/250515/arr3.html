@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+        .box{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .newscom{
+            width: 130px;
+            height: 70px;
+            border:1px solid gray;
+            text-align: center;
+            align-content: center;
+        }
+
+     </style>
+     
+</head>
+<body>
+    <div id="box" class="box">
+        
+    </div>
+    
+    <script>
+        //1개의 content를 id가 box안에 넣기
+        /*
+        let content='<div class="newscom">서울신문</div>';
+        const box=document.getElementById("box");
+        box.innerHTML=content;
+        */
+
+        //여러개를 넣을 경우(반복문)
+        /*
+        let content='<div class="newscom">서울신문</div>';
+        const box=document.getElementById("box");
+        for(i=0;i<10;i++){
+        box.innerHTML+=content;
+        }
+        */
+
+        //데이터를 준비하여 반문을 처리
+        var data=["서울신문","프레시안","MBC","MBN","경향신문","한겨례"
+        ,"스포츠조선","JTBC","전자신문","한국일보"];
+        
+        const box=document.getElementById("box");
+        for (let value of data) {
+            let content=`<div class="newscom">${value}</div>`;
+            box.innerHTML+=content;
+        }
+
+        const newscom=document.getElementsByClassName("newscom");
+        for(let i=0;i<data.length;i++){
+        newscom[i].addEventListener("mouseover",(event)=>{
+            event.target.textContent="구독 | 기사보기";
+            event.target.style.backgroundColor="blue";
+            event.target.style.color="white";
+        })
+        }
+        //console.log("i value:"+i);
+        for(let i=0;i<data.length;i++){
+        newscom[i].addEventListener("mouseout",(event)=>{
+            event.target.textContent=data[i];
+            event.target.style.backgroundColor="white";
+            event.target.style.color="black";
+        })
+        }
+        //console.log("i value:"+i);
+        /* 이벤트 등록시에 콜백함수를 사용할 경우 
+        var를 사용하면 객체를 정확히 얻을 수 없는 경우가 발생하므로
+        let을 사용하여 처리
+        */
+    </script>
+</body>
+</html>
