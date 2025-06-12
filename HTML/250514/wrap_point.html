@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main"></div>
+    <div id="main2">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+</body>
+<style>
+    #main{
+        width: 100%;
+        font-size: 100px;
+        border:1px solid red;
+        /* 둘 중에 하나만 사용해도 됨 */
+        word-wrap: break-word;     /* 오래된 방식 */
+        overflow-wrap: break-word; /* 권장 방식 */
+    }
+    #main::after{
+          content : "djfkadjfkajfkdjfkajfldkfjakldfjalkfjaklfjalkdjflakdjfkladjkflajdfklljkf";
+    }
+    /* flex일 경우 
+    display: flex;
+    flex-wrap: wrap;
+     */
+    #main2 {
+        width: 100%;
+        font-size: 100px;
+        border:1px solid red;
+        white-space: nowrap;   /* 줄바꿈 하지 않음 */
+        overflow: hidden;
+        text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
+    }
+
+</style>
+<script>
+
+</script>
+</html>
